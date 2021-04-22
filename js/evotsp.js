@@ -86,9 +86,58 @@
     //    { length: …, routeId: …}
     // You should add each of these to `#best-route-list`
     // (after clearing it first).
-    function getBestRoutes(event) {
-        alert('You need to implement getBestRoutes()');
+        
+        exports.handler = (event, context, callback) => {
+            const requestBody = JSON.parse(event.body);
+            const runId = requestBody.runId;
+            const generation = requestBody.generation;
+            const numToReturn = requestBody.numToReturn
+            
+            getBestRoutes(runId, generation, numToReturn)
+                .then(dbResults => {
+                const bestRoutes = dbResults.Items;
+                callback(null, {
+                                statusCode: 201,
+                                body: JSON.stringify(bestRoutes),
+                                headers: {'Access-Control-Allow-Origin': '*'}
+                               });
+            })
+            .catch(err => {
+                console.log(`Problem getting best runs for generation ${generation} of ${runId}.`);
+                console.error(err);
+                errorResponse(err.message, context.awsRequestId, callback);
+            });
+        }
+
+    
+    function getBestRoutes(event)  {
+        const partitionKey = runId + "#" + generation;
+        return ddb.query({
+            TableName: 'routes',
+            ProjectionExpression: "routeId, length",
+            KeyConditionExpression: "partitionKey = :partitionKey",
+            ExpressionAttributeValues: {
+                ":partitionKey": partitionKey,
+            },
+            Limit: numToReturn
+        }).promise();
+        
+        alert('Best ()');
     }
+    
+    function errorResponse(errorMessage, awsRequestId, callback) {
+    callback(null, {
+    statusCode: 500,
+    body: JSON.stringify({
+      Error: errorMessage,
+      Reference: awsRequestId,
+    }),
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+     },
+     });
+    }
+   
 
     // Make a `GET` request that gets all the route information
     // for the given `routeId`.
@@ -100,5 +149,4 @@
     function getRouteById() {
         alert('You need to implement getRouteById()');
     }
-
 }(jQuery));
