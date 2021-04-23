@@ -115,8 +115,9 @@
 */
     
     function getBestRoutes(event)  {
-        const runId = $('#runId-text-field').val();
-        const generation = $('#generation-text-field').val();
+        const runId = result.runId;
+        const generation = result.generation;
+        const numToReturn = result.numToReturn;
         const partitionKey = runId + "#" + generation;
         return ddb.query({
             TableName: 'routes',
