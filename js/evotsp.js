@@ -2,7 +2,7 @@
 
     // You'll need to replace this with the URL you get when you
     // deploy your API Gateway.
-    const baseUrl = 'https://nh5gsos957.execute-api.us-east-1.amazonaws.com/prod/'
+    const baseUrl = 'https://gfhl38a0ch.execute-api.us-east-1.amazonaws.com/evotspprod/'
     console.log(`The base URL is ${baseUrl}.`);
 
     // Set up the functions to be called when the user clicks on any
@@ -76,7 +76,7 @@
         console.log('New route received from API: ', result);
         const routeId = result.routeId;
         const length = result.length;
-        $('#new-route-list').append(`<li>We generated route ${routeId} with length ${length}.</li>`);
+        $('#new-route-list').append(`<li>We generated route ${routeId} with length ${result.length}.</li>`);
     }
 
     // Make a `GET` request that gets the K best routes.
@@ -86,7 +86,7 @@
     //    { length: …, routeId: …}
     // You should add each of these to `#best-route-list`
     // (after clearing it first).
-        
+    /*
         exports.handler = (event, context, callback) => {
             const requestBody = JSON.parse(event.body);
             const runId = requestBody.runId;
@@ -107,8 +107,9 @@
                 console.error(err);
                 errorResponse(err.message, context.awsRequestId, callback);
             });
-        }
 
+        }
+*/
     
     function getBestRoutes(event)  {
         const partitionKey = runId + "#" + generation;
@@ -122,7 +123,6 @@
             Limit: numToReturn
         }).promise();
         
-        alert('Best ()');
     }
     
     function errorResponse(errorMessage, awsRequestId, callback) {
