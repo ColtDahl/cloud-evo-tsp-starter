@@ -115,7 +115,7 @@
 
     */
     function getBestRoutes(event)  {
-        const partitionKey = runId + "#" + generation;
+       const partitionKey = runId + "#" + generation;
         return ddb.query({
             TableName: 'routes',
             ProjectionExpression: "routeId, length",
@@ -151,7 +151,10 @@
     // This request will return a complete route JSON object.
     // You should display the returned information in 
     // `#route-by-id-elements` (after clearing it first).
+
+    
     function getRouteById() {
+
         alert('You need to implement getRouteById()');
     }
 }(jQuery));
