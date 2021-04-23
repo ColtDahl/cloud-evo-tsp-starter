@@ -154,20 +154,6 @@
 
         }
 */
-    
-    function errorResponse(errorMessage, awsRequestId, callback) {
-    callback(null, {
-    statusCode: 500,
-    body: JSON.stringify({
-      Error: errorMessage,
-      Reference: awsRequestId,
-    }),
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-     },
-     });
-    }
-   
 
     // Make a `GET` request that gets all the route information
     // for the given `routeId`.
