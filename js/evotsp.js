@@ -90,17 +90,35 @@
     // You should add each of these to `#best-route-list`
     // (after clearing it first).
 
-    
-    function getBestRoutes(event)  {
+    function getBestRoutes(event) {
+        const runId = $('#runId-text-field').val();
+        const generation = $('#generation-text-field').val();
+        const numToReturn =$('#num-best-to-get').val();
+        // Reset the contents of `#new-route-list` so that it's ready for
+        // `showRoute()` to "fill" it with the incoming new routes. 
+        $('#best-route-list').text('');
+        // 
+        async.times(numToGenerate, () => getBestRoutes(runId, generation, numToReturn));
+        
+    }
+
+    function showBestRoute(result) {
+        console.log('New route received from API: ', result);
+        const routeId = result.routeId;
+        const length = result.length;
+        $('#best-route-list').append(`<li>We generated route ${routeId} with length ${result.length}.</li>`);
+    }
+
+    function getBestRoutes(runId, generation, numToReturn)  {
         $.ajax({
             method: 'GET',
-            url: baseUrl + '/base',
+            url: baseUrl + '/base?runId=' + runId+'&'+'generation='+'&'+numToReturn,
             data: JSON.stringify({
                 runId: runId,
                 generation: generation
             }),
             contentType: 'application/json',
-            success: showRoute,
+            success: showBestRoute,
             error: function ajaxError(jqXHR, textStatus, errorThrown) {
                 console.error(
                     'Error getting best routes: ', 
@@ -108,11 +126,11 @@
                     ', Details: ', 
                     errorThrown);
                 console.error('Response: ', jqXHR.responseText);
-                alert('An error occurred when creating a random route:\n' + jqXHR.responseText);
+                alert('An error occurred when getting a good route:\n' + jqXHR.responseText);
             }
         })
     }
-
+*/
   /*  
         exports.handler = (event, context, callback) => {
             const requestBody = JSON.parse(event.body);
