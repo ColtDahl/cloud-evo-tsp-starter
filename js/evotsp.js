@@ -89,6 +89,30 @@
     //    { length: …, routeId: …}
     // You should add each of these to `#best-route-list`
     // (after clearing it first).
+
+    
+    function getBestRoutes(event)  {
+        $.ajax({
+            method: 'GET',
+            url: baseUrl + '/base',
+            data: JSON.stringify({
+                runId: runId,
+                generation: generation
+            }),
+            contentType: 'application/json',
+            success: showRoute,
+            error: function ajaxError(jqXHR, textStatus, errorThrown) {
+                console.error(
+                    'Error getting best routes: ', 
+                    textStatus, 
+                    ', Details: ', 
+                    errorThrown);
+                console.error('Response: ', jqXHR.responseText);
+                alert('An error occurred when creating a random route:\n' + jqXHR.responseText);
+            }
+        })
+    }
+
   /*  
         exports.handler = (event, context, callback) => {
             const requestBody = JSON.parse(event.body);
@@ -113,25 +137,6 @@
 
         }
 */
-    
-    function getBestRoutes(event)  {
-        const runId = result.runId;
-        const generation = result.generation;
-        const numToReturn = result.numToReturn;
-        const partitionKey = runId + "#" + generation;
-        return ddb.query({
-            TableName: 'routes',
-            ProjectionExpression: "routeId, length",
-            KeyConditionExpression: "partitionKey = :partitionKey",
-            ExpressionAttributeValues: {
-                ":partitionKey": partitionKey,
-            },
-            Limit: numToReturn
-        }).promise();
-        
-    }
-
-    
     
     function errorResponse(errorMessage, awsRequestId, callback) {
     callback(null, {
