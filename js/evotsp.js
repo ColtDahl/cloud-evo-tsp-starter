@@ -113,9 +113,9 @@
 
         }
 
-    
+    */
     function getBestRoutes(event)  {
-        const partitionKey = runId + "#" + generation;
+        const partitionKey = routeId + "#" + generation;
         return ddb.query({
             TableName: 'routes',
             ProjectionExpression: "routeId, length",
@@ -128,7 +128,7 @@
         
     }
 
-    */
+    
     
     function errorResponse(errorMessage, awsRequestId, callback) {
     callback(null, {
