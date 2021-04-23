@@ -89,7 +89,7 @@
     //    { length: …, routeId: …}
     // You should add each of these to `#best-route-list`
     // (after clearing it first).
-    /*
+  /*  
         exports.handler = (event, context, callback) => {
             const requestBody = JSON.parse(event.body);
             const runId = requestBody.runId;
@@ -112,10 +112,12 @@
             });
 
         }
-
-    */
+*/
+    
     function getBestRoutes(event)  {
-       const partitionKey = runId + "#" + generation;
+        const runId = $('#runId-text-field').val();
+        const generation = $('#generation-text-field').val();
+        const partitionKey = runId + "#" + generation;
         return ddb.query({
             TableName: 'routes',
             ProjectionExpression: "routeId, length",
