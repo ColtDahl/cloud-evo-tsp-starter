@@ -1,8 +1,5 @@
 (function evoTSPwrapper($) {
 
-    const AWS = require('aws-sdk');
-    const ddb = new AWS.DynamoDB.DocumentClient();
-
     // You'll need to replace this with the URL you get when you
     // deploy your API Gateway.
     //const baseUrl = 'https://gfhl38a0ch.execute-api.us-east-1.amazonaws.com/evotspprod'
@@ -82,7 +79,7 @@
         console.log('New route received from API: ', result);
         const routeId = result.routeId;
         const length = result.length;
-        $('#new-route-list').append(`<li>We generated route ${routeId} with length ${result.len}.</li>`);
+        $('#new-route-list').append(`<li>We generated route ${routeId} with length ${result.length}.</li>`);
     }
 
     // Make a `GET` request that gets the K best routes.
