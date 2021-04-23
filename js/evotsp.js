@@ -40,8 +40,11 @@
                     errorThrown);
                 console.error('Response: ', jqXHR.responseText);
                 alert('An error occurred when creating a random route:\n' + jqXHR.responseText);
-            }
-        })
+            },
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+               },
+        });
     }
 
     // Generates a collection of new routes, where the number to generate
@@ -68,6 +71,7 @@
         $('#new-route-list').text('');
         // 
         async.times(numToGenerate, () => randomRoute(runId, generation));
+        
     }
 
     // When a request for a new route is completed, add an `<li>…</li>` element
