@@ -112,7 +112,7 @@
     function getBestRoutes(runId, generation, numToReturn)  {
         $.ajax({
             method: 'GET',
-            url: baseUrl + '/base?runId=' + runId+'&'+'generation='+generation+'&'+numToReturn,
+            url: baseUrl + '/base?runId=' + runId+'&'+'generation='+generation+'&numreturn='+numToReturn,
             data: JSON.stringify({
                 runId: runId,
                 generation: generation
