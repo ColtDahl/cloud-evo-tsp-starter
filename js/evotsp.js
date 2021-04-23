@@ -1,5 +1,8 @@
 (function evoTSPwrapper($) {
 
+    const AWS = require('aws-sdk');
+    const ddb = new AWS.DynamoDB.DocumentClient();
+
     // You'll need to replace this with the URL you get when you
     // deploy your API Gateway.
     //const baseUrl = 'https://gfhl38a0ch.execute-api.us-east-1.amazonaws.com/evotspprod'
@@ -115,7 +118,7 @@
 
     */
     function getBestRoutes(event)  {
-        const partitionKey = routeId + "#" + generation;
+        const partitionKey = runId + "#" + generation;
         return ddb.query({
             TableName: 'routes',
             ProjectionExpression: "routeId, length",
