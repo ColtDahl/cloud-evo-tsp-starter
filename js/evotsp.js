@@ -40,11 +40,8 @@
                     errorThrown);
                 console.error('Response: ', jqXHR.responseText);
                 alert('An error occurred when creating a random route:\n' + jqXHR.responseText);
-            },
-            headers: {
-                'Access-Control-Allow-Origin': '*',
-               },
-        });
+            }
+        })
     }
 
     // Generates a collection of new routes, where the number to generate
@@ -137,7 +134,8 @@
       Reference: awsRequestId,
     }),
     headers: {
-      'Access-Control-Allow-Origin': '*'},
+      'Access-Control-Allow-Origin': '*',
+     },
      });
     }
    
