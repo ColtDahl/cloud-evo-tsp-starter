@@ -130,7 +130,6 @@
             }
         })
     }
-*/
   /*  
         exports.handler = (event, context, callback) => {
             const requestBody = JSON.parse(event.body);
