@@ -112,7 +112,7 @@
             });
 
         }
-*/
+
     
     function getBestRoutes(event)  {
         const partitionKey = runId + "#" + generation;
@@ -127,6 +127,8 @@
         }).promise();
         
     }
+
+    */
     
     function errorResponse(errorMessage, awsRequestId, callback) {
     callback(null, {
